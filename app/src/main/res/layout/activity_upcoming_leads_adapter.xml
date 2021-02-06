@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".Adapter.UpcomingLeadsAdapter">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_upcomingLeads"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:elevation="2dp"
+        app:cardCornerRadius="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="5dp"
+                    android:gravity="start"
+                    android:layout_marginStart="10dp"
+                    android:paddingEnd="5dp"
+                    android:text="@string/client_name"
+                    android:textColor="#000"
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:id="@+id/name_client"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="5dp"
+                    android:gravity="end"
+                    android:layout_marginEnd="10dp"
+                    android:paddingEnd="5dp"
+                    android:textColor="@color/green"
+                    android:textSize="14sp"
+                    tools:text="B.Subramanyam" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="5dp"
+                    android:gravity="start"
+                    android:layout_marginStart="10dp"
+                    android:paddingEnd="5dp"
+                    android:text="@string/appointment_date_amp_time"
+                    android:textColor="#000"
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:id="@+id/apppoint_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="5dp"
+                    android:gravity="end"
+                    android:paddingEnd="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:textColor="@color/green"
+                    android:textSize="14sp"
+                    tools:text="B.Subramanyam" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="5dp"
+                    android:gravity="start"
+                    android:layout_marginStart="10dp"
+                    android:paddingEnd="5dp"
+                    android:text="@string/lead_type"
+                    android:textColor="#000"
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:id="@+id/lead_type"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="5dp"
+                    android:gravity="end"
+                    android:paddingEnd="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:textColor="@color/green"
+                    android:textSize="14sp"
+                    tools:text="B.Subramanyam" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="5dp"
+                    android:gravity="start"
+                    android:layout_marginStart="10dp"
+                    android:paddingEnd="5dp"
+                    android:text="@string/branch_name"
+                    android:textColor="#000"
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:id="@+id/branch_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="5dp"
+                    android:gravity="end"
+                    android:paddingEnd="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:textColor="@color/green"
+                    android:textSize="14sp"
+                    tools:text="B.Subramanyam" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="5dp"
+                    android:gravity="start"
+                    android:layout_marginStart="10dp"
+                    android:paddingEnd="5dp"
+                    android:text="@string/appointment_name"
+                    android:textColor="#000"
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:id="@+id/apppoint_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="5dp"
+                    android:gravity="end"
+                    android:layout_marginEnd="10dp"
+                    android:paddingEnd="5dp"
+                    android:textColor="#E80909"
+                    android:textSize="14sp"
+                    tools:text="B.Subramanyam" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/green"
+    tools:context=".Activity.SuccessfulActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/img_success"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="130dp"
+                android:src="@drawable/successful_1" />
+
+            <TextView
+                android:id="@+id/tv_success"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/img_success"
+                android:layout_centerHorizontal="true"
+                android:text="Successfully Registered"
+                android:textColor="@android:color/white"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/home_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_success"
+                android:layout_centerHorizontal="true"
+                android:gravity="center_horizontal"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:text="Your Account is Pending, Please Contact Unnathi Team." />
+
+            <TextView
+                android:id="@+id/tv_home_btn"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/home_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/drawable_home_btnshape"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="OK"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+            <!--<TextView
+                android:id="@+id/tv_update_success"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/img_success"
+                android:layout_centerHorizontal="true"
+                android:text="@string/your_update_details"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/tv_success"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_update_success"
+                android:layout_centerHorizontal="true"
+                android:text="@string/successful"
+                android:textColor="@android:color/white"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/tv_home_btn"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_success"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/drawable_home_btnshape"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="@string/back_to_home"
+                android:textColor="@color/black"
+                android:textSize="15sp" />-->
+
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

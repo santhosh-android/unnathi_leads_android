@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "647283206182",
+    "project_id": "unnathi-lead",
+    "storage_bucket": "unnathi-lead.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:647283206182:android:5685fa1e01aa258d0b9ee7",
+        "android_client_info": {
+          "package_name": "com.leadapplication.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "647283206182-1r8n4pnr6s77k443s21mgknbn08r7adr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.leadapplication.app",
+            "certificate_hash": "691ccd09b4a92cc8f4103408127f9c4bdca34c6a"
+          }
+        },
+        {
+          "client_id": "647283206182-fep45i9gd5tfu70110v1r1gcmrafiqeb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJOFs7BEAz7dKRN24xbcluD33hmJk3qp8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "647283206182-fep45i9gd5tfu70110v1r1gcmrafiqeb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

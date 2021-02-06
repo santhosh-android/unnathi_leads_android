@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".Activity.LoginActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/img_logo"
+                android:layout_width="250dp"
+                android:layout_height="200dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:src="@drawable/logo_1"
+                tools:ignore="ContentDescription" />
+
+            <LinearLayout
+                android:id="@+id/layout_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/img_logo"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="25dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/email_1"
+                    tools:ignore="ContentDescription" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_email_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/green"
+                        android:hint="@string/email"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@android:color/black"
+                        android:textColorHint="@color/green"
+                        android:textCursorDrawable="@null" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_email"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="25dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/password"
+                    tools:ignore="ContentDescription" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_password_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/green"
+                        android:hint="@string/password"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@android:color/black"
+                        android:textColorHint="@color/green"
+                        android:textCursorDrawable="@null" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_forgot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_password"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/forgto_password"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_forgot"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="25dp"
+                android:background="@drawable/loginbtn_shape"
+                android:text="@string/sign_in"
+                android:textColor="@android:color/white"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_register_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btn_login"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:paddingStart="2dp"
+                android:paddingEnd="2dp"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                tools:text="@string/don_t_have_an_account_register" />
+
+            <!-- <TextView
+                 android:id="@+id/piechart"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_below="@id/tv_register_btn"
+                 android:text="Pie Chart"
+                 android:textSize="20sp"/>-->
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

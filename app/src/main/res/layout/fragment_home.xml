@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Fragment.HomeFragment">
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/piechart_1"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_marginTop="30dp" />
+
+    <TextView
+        android:id="@+id/tv_followup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#F3E4E4"
+        android:padding="10dp"
+        android:text="FollowUps"
+        android:textColor="#FD0328"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:drawableEndCompat="@drawable/ic_arrow_forward" />
+
+    <TextView
+        android:id="@+id/tv_completed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="#F8D8CE"
+        android:padding="10dp"
+        android:text="Completed"
+        android:textColor="#F6531F"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:drawableEndCompat="@drawable/ic_arrow_forward" />
+
+    <TextView
+        android:id="@+id/tv_cancelled"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="#F8EDCE"
+        android:padding="10dp"
+        android:text="Cancelled"
+        android:textColor="#D39F05"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:drawableEndCompat="@drawable/ic_arrow_forward" />
+
+
+</LinearLayout>

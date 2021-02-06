@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/group_1"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/add_lead"
+            android:title="Add Lead" />
+    </group>
+
+    <group
+        android:id="@+id/group_2"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/dash"
+            android:title="DashBoard" />
+    </group>
+
+    <group
+        android:id="@+id/group_3"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/profile"
+            android:title="Profile" />
+    </group>
+    <group
+        android:id="@+id/group_4"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/manage_leads"
+            android:title="Manage Leads" />
+    </group>
+
+    <group
+        android:id="@+id/group_6"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/completed"
+            android:title="My Leads" />
+    </group>
+
+   <!-- <group
+        android:id="@+id/group_7"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/support"
+            android:title="Support" />
+    </group>-->
+    <group
+        android:id="@+id/group_5"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/log_out"
+            android:title="LogOut" />
+    </group>
+
+</menu>

@@ -1,0 +1,61 @@
+<resources>
+    <string name="app_name">Unnathi Lead</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="create">CREATE</string>
+    <string name="description">Description</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="email">Email / Mobile Number</string>
+    <string name="add_new_lead">ADD NEW LEAD</string>
+    <string name="password">PASSWORD</string>
+    <string name="forgto_password">Forgto Password?</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="my_profile">PROFILE</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="update">UPDATE</string>
+    <string name="retype_password">Retype Password</string>
+    <string name="manage_leads">MANAGE LEADS</string>
+    <string name="reminder">Reminder</string>
+    <string name="date_amp_time"><![CDATA[Date & Time]]></string>
+    <string name="client_name">Name</string>
+    <string name="appointment_date_amp_time"><![CDATA[Appointment Date&Time]]></string>
+    <string name="lead_type">Lead Type</string>
+    <string name="branch_name">Branch Name</string>
+    <string name="appointment_name">Appointment Name</string>
+    <string name="appointment_time">Appointment Time</string>
+    <string name="enater_name">Enter Name</string>
+    <string name="address">Address</string>
+    <string name="enter_pincode">Enter Pincode</string>
+    <string name="upload_aadhar">Upload Aadhar</string>
+    <string name="enter_city">Enter City</string>
+    <string name="don_t_have_an_account_register">Don\'t have an account? Register</string>
+    <string name="register">Register</string>
+    <string name="todo">TODO</string>
+    <string name="get_details">Enter Mobile Number to Get Customer Details</string>
+    <string name="click_here_to_assign">Click Here to Assign with this Customer</string>
+    <string name="register_customer">Click Here to Register as a Unnathi Customer</string>
+    <string name="alternate_number">Alternate Number</string>
+    <string name="email_mobile">Name /Email/ Mobile</string>
+
+    <string-array name="status_type_array">
+        <item>Select Status</item>
+        <item>Pending</item>
+        <item>Completed</item>
+    </string-array>
+
+    <string-array name="select_status_array">
+        <item>Select Action Plan</item>
+        <item>New</item>
+        <item>FollowUp</item>
+        <item>Meeting</item>
+    </string-array>
+
+    <string-array name="select_action">
+        <item>Select Action Plan</item>
+        <item>FollowUp</item>
+        <item>Meeting</item>
+        <item>Canceled</item>
+        <item>Completed</item>
+    </string-array>
+</resources>

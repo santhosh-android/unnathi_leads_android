@@ -108,7 +108,7 @@ public class UserDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(UserDetailsActivity.this, UserRegisterActivity.class);
-                intent.putExtra("mobile",userMobile);
+                intent.putExtra("mobile", userMobile);
                 startActivity(intent);
             }
         });
@@ -229,7 +229,7 @@ public class UserDetailsActivity extends AppCompatActivity {
                             txt_lastname.setText("Last Name : " + lastname);
                             txt_mobile.setText("Mobile Number : " + mobile);
                             txt_email.setText("Registered Email : " + email);
-                            txt_agent_assigned.setText("Is Assined With Agent :" + agent_assigned);
+                            txt_agent_assigned.setText("Is Assigned With Agent :" + agent_assigned);
                             if (agent_assigned.equals("yes")) {
                                 agent_name = detailsObject.getString("agent_name");
                                 txt_agent_name.setText("Agent Name : " + agent_name);

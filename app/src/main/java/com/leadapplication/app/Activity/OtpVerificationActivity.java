@@ -289,7 +289,6 @@ public class OtpVerificationActivity extends AppCompatActivity implements OtpCon
                     txt_resend.setText(String.format("Resend Code in %s sec", millisUntilFinished / 1000));
                 }
             }
-
             @Override
             public void onFinish() {
                 txt_resend.setText("Resend OTP");
@@ -312,7 +311,6 @@ public class OtpVerificationActivity extends AppCompatActivity implements OtpCon
     @Override
     public void onOtpSuccess(JSONObject jsonObject) {
         progressDialog.cancel();
-        progressDialog.hide();
         try {
             String message = jsonObject.getString("message");
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
@@ -326,7 +324,6 @@ public class OtpVerificationActivity extends AppCompatActivity implements OtpCon
     @Override
     public void onOtpFailure(String failureMsg) {
         progressDialog.cancel();
-        progressDialog.hide();
         Toast.makeText(this, failureMsg, Toast.LENGTH_SHORT).show();
     }
 }

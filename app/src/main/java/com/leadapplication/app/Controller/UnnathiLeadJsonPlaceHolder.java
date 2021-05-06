@@ -149,4 +149,8 @@ public interface UnnathiLeadJsonPlaceHolder {
     @POST("agent_change_password")
     Call<ResponseBody> passwordChange(@FieldMap Map<String, String> changePassword);
 
+    @FormUrlEncoded
+    @POST("user_forgot_password_check_mobile")
+    Call<ResponseBody> forgotPassword(@Field("mobile") String mobile);
+
 }

@@ -45,16 +45,6 @@
                     android:textSize="20sp"
                     tools:ignore="RelativeOverlap" />
 
-                <!--<ImageView
-                    android:id="@+id/img_share_add"
-                    android:layout_width="25dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="20dp"
-                    android:src="@drawable/share_icon"
-                    tools:ignore="ContentDescription" />-->
-
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
@@ -146,7 +136,6 @@
                 android:id="@+id/layout_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/layout_email"
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="25dp"
@@ -172,8 +161,10 @@
                         android:focusable="false"
                         android:hint="@string/mobile_number"
                         android:inputType="number"
+                        android:maxLength="10"
                         android:textColor="@android:color/black"
-                        android:textCursorDrawable="@null" />
+                        android:textCursorDrawable="@null"
+                        android:autofillHints="" />
 
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
@@ -207,6 +198,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/alternate_number"
                         android:inputType="number"
+                        android:maxLength="10"
                         android:textColor="@android:color/black"
                         android:textCursorDrawable="@null" />
 
@@ -239,7 +231,7 @@
                         android:checked="true"
                         android:text="Service Categories"
                         android:textColor="@android:color/black"
-                        android:textSize="15sp" />
+                        android:textSize="13sp" />
 
 
                     <RadioButton
@@ -249,7 +241,7 @@
                         android:layout_marginLeft="10dp"
                         android:text="Product Categories"
                         android:textColor="@android:color/black"
-                        android:textSize="15sp" />
+                        android:textSize="13sp" />
                 </RadioGroup>
 
 
@@ -786,4 +778,10 @@
 
         </LinearLayout>
     </ScrollView>
+    <ProgressBar
+        android:id="@+id/pbr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
 </RelativeLayout>

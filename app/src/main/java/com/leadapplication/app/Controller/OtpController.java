@@ -1,5 +1,8 @@
 package com.leadapplication.app.Controller;
 
+import android.widget.Toast;
+
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -38,7 +41,7 @@ public class OtpController {
         Call<ResponseBody> responseBodyCall = jsonPlaceHolder.otpVerify(otpMap);
         responseBodyCall.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
                 if (response.body() != null) {
                     try {
                         String responseString = new String(response.body().bytes());

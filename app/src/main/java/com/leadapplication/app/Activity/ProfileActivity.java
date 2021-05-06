@@ -1,5 +1,6 @@
 package com.leadapplication.app.Activity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,22 +17,18 @@ import com.leadapplication.app.R;
 
 public class ProfileActivity extends AppCompatActivity {
     private ImageView img_back_profile;
-    private CardView card_myprofile, card_business_card, card_action_plan, card_change_password, card_logout, card_about;
+    private CardView card_myprofile, card_business_card, card_action_plan, card_change_password, card_logout,cardMyWallet;
     private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        sharedPreferences = getSharedPreferences("unnathiLead", Context.MODE_PRIVATE);
 
         castingViews();
 
-        img_back_profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        img_back_profile.setOnClickListener(v -> onBackPressed());
 
         clickEvents();
     }
@@ -43,6 +40,7 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivity(new Intent(ProfileActivity.this, ChangePasswordActivity.class));
             }
         });
+        cardMyWallet.setOnClickListener(v -> Toast.makeText(ProfileActivity.this, "This feature is Coming Soon", Toast.LENGTH_SHORT).show());
         card_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,12 +86,7 @@ public class ProfileActivity extends AppCompatActivity {
                 Toast.makeText(ProfileActivity.this, "This feature is Coming Soon", Toast.LENGTH_SHORT).show();
             }
         });
-        card_about.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(ProfileActivity.this, "This feature is Coming Soon", Toast.LENGTH_SHORT).show();
-            }
-        });
+
     }
 
     private void castingViews() {
@@ -103,6 +96,6 @@ public class ProfileActivity extends AppCompatActivity {
         card_action_plan = findViewById(R.id.card_action_plan);
         card_change_password = findViewById(R.id.card_change_password);
         card_logout = findViewById(R.id.card_logout);
-        card_about = findViewById(R.id.card_about);
+        cardMyWallet = findViewById(R.id.cardMyWallet);
     }
 }

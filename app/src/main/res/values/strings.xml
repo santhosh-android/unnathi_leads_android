@@ -8,7 +8,7 @@
     <string name="email">Email / Mobile Number</string>
     <string name="add_new_lead">ADD NEW LEAD</string>
     <string name="password">PASSWORD</string>
-    <string name="forgto_password">Forgto Password?</string>
+    <string name="forgto_password">Forgot Password?</string>
     <string name="sign_in">SIGN IN</string>
     <string name="my_profile">PROFILE</string>
     <string name="old_password">Old Password</string>
@@ -37,6 +37,8 @@
     <string name="register_customer">Click Here to Register as a Unnathi Customer</string>
     <string name="alternate_number">Alternate Number</string>
     <string name="email_mobile">Name /Email/ Mobile</string>
+    <string name="notifications">Notifications</string>
+    <string name="user_password">Unnathi@123</string>
 
     <string-array name="status_type_array">
         <item>Select Status</item>

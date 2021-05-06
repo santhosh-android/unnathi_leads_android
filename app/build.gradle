@@ -60,6 +60,9 @@ dependencies {
     //DotsIndicator
     implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
 
+    //Auto Scroll banner view pager
+    implementation 'com.github.pzienowicz:androidx-auto-scroll-view-pager:1.1.0'
+
     //PieChart
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
 

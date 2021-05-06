@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,18 +59,18 @@ public class UserRegisterActivity extends AppCompatActivity implements CustomerR
     private List<PincodeModel> pincodeModelList;
     private List<IamSpinnerModel> iamSpinnerModelList;
     private TextView tv_register, tv_pass_rule;
-    private SharedPreferences sharedPreferences;
     private String agent_id, selectedCountry = "", selectedState = "", selectedDistrict = "", selectedMandal = "", selectedVillage = "", selectedPincode = "", selectedIam = "";
     private ImageView img_back_customer, img_information;
     private boolean isClick = true;
     private String userMb;
+    private ProgressBar pbr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.customer_register);
 
-        sharedPreferences = getSharedPreferences("unnathiLead", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("unnathiLead", MODE_PRIVATE);
         agent_id = sharedPreferences.getString("agent_id", "");
         if (getIntent().hasExtra("mobile")) {
             userMb = getIntent().getStringExtra("mobile");
@@ -89,64 +90,63 @@ public class UserRegisterActivity extends AppCompatActivity implements CustomerR
     }
 
     private void getCountryApiCall() {
+        pbr.setVisibility(View.VISIBLE);
         LocationSpinnersController.getLocationSpinnersController().CountryApiCall();
     }
 
     private void getStateApiCall() {
+        pbr.setVisibility(View.VISIBLE);
         LocationSpinnersController.getLocationSpinnersController().getStatesApiCall(selectedCountry);
     }
 
     private void getDistrictApiCall() {
+        pbr.setVisibility(View.VISIBLE);
         LocationSpinnersController.getLocationSpinnersController().getDistrictsApiCall(selectedState);
     }
 
     private void getMandalsApiCall() {
+        pbr.setVisibility(View.VISIBLE);
         LocationSpinnersController.getLocationSpinnersController().getCityApiCall(selectedDistrict);
     }
 
     private void getVillagesApiCall() {
+        pbr.setVisibility(View.VISIBLE);
         LocationSpinnersController.getLocationSpinnersController().getVillageApiCall(selectedMandal);
     }
 
     private void getPinCodeApiCall() {
+        pbr.setVisibility(View.VISIBLE);
         LocationSpinnersController.getLocationSpinnersController().getPincodeApiCall(selectedVillage);
     }
 
 
     private void onClick() {
-        tv_register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                gettingVariables();
-                if (!validateSurname() || !validateName() || !validateNumber() || !validateEmail() || !validatePassword() || !validatereenterPassword() || !validateHouse() || !validateCountry() || !validateState() || !validateDistrict() ||
-                        !validateMandal() || !validateVillage() || !validatePincode() || !validateIam()) {
-                    return;
-                } else {
-                    Map<String, String> registerMap = new HashMap<>();
-                    registerMap.put("first_name", surnameString);
-                    registerMap.put("last_name", nameString);
-                    registerMap.put("mobile", numberString);
-                    registerMap.put("email", emailString);
-                    registerMap.put("password", passwordString);
-                    registerMap.put("country_id", selectedCountry);
-                    registerMap.put("state_id", selectedState);
-                    registerMap.put("district_id", selectedDistrict);
-                    registerMap.put("mandal_id", selectedMandal);
-                    registerMap.put("village_id", selectedVillage);
-                    registerMap.put("pincode_id", selectedPincode);
-                    registerMap.put("address", addressString);
-                    registerMap.put("i_am_a", selectedIam);
-                    CustomerRegisterController.getCustomerRegisterController().CustomerRegistrationApiCall(registerMap);
-                    CustomerRegisterController.getCustomerRegisterController().setCustomerRegisterListener(UserRegisterActivity.this);
-                }
+        tv_register.setOnClickListener(v -> {
+            gettingVariables();
+            if (!validateSurname() || !validateName() || !validateNumber() || !validateEmail() || !validateHouse() || !validateCountry() || !validateState() || !validateDistrict() ||
+                    !validateMandal() || !validateVillage() || !validatePincode() || !validateIam()) {
+                return;
+            } else {
+                pbr.setVisibility(View.VISIBLE);
+                Map<String, String> registerMap = new HashMap<>();
+                registerMap.put("first_name", surnameString);
+                registerMap.put("last_name", nameString);
+                registerMap.put("mobile", numberString);
+                registerMap.put("email", emailString);
+                registerMap.put("password", "Unnathi@123");
+                registerMap.put("country_id", selectedCountry);
+                registerMap.put("state_id", selectedState);
+                registerMap.put("district_id", selectedDistrict);
+                registerMap.put("mandal_id", selectedMandal);
+                registerMap.put("village_id", selectedVillage);
+                registerMap.put("pincode_id", selectedPincode);
+                registerMap.put("address", addressString);
+                registerMap.put("i_am_a", selectedIam);
+                CustomerRegisterController.getCustomerRegisterController().CustomerRegistrationApiCall(registerMap);
+                CustomerRegisterController.getCustomerRegisterController().setCustomerRegisterListener(UserRegisterActivity.this);
             }
         });
-        img_back_customer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        img_back_customer.setOnClickListener(v -> onBackPressed());
         spinner_country.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -251,18 +251,15 @@ public class UserRegisterActivity extends AppCompatActivity implements CustomerR
             }
         });
 
-        img_information.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isClick) {
-                    isClick = false;
-                    tv_pass_rule.setVisibility(View.VISIBLE);
-                } else {
-                    isClick = true;
-                    tv_pass_rule.setVisibility(View.GONE);
-                }
-
+        img_information.setOnClickListener(v -> {
+            if (isClick) {
+                isClick = false;
+                tv_pass_rule.setVisibility(View.VISIBLE);
+            } else {
+                isClick = true;
+                tv_pass_rule.setVisibility(View.GONE);
             }
+
         });
     }
 
@@ -438,6 +435,7 @@ public class UserRegisterActivity extends AppCompatActivity implements CustomerR
         spinner_iam = findViewById(R.id.spinner_iam);
         img_information = findViewById(R.id.img_information);
         tv_pass_rule = findViewById(R.id.tv_pass_rule);
+        pbr = findViewById(R.id.pbr);
     }
 
     @Override
@@ -454,6 +452,7 @@ public class UserRegisterActivity extends AppCompatActivity implements CustomerR
 
     @Override
     public void onCustomerRegSuccess(JSONObject jsonObject) {
+        pbr.setVisibility(View.GONE);
         String message = null;
         try {
             message = jsonObject.getString("message");
@@ -462,16 +461,18 @@ public class UserRegisterActivity extends AppCompatActivity implements CustomerR
             e.printStackTrace();
         }
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(UserRegisterActivity.this, MainActivity.class));
+        startActivity(new Intent(UserRegisterActivity.this, SuccessfulActivity.class));
     }
 
     @Override
     public void onCustomerRegFailure(String failure) {
+        pbr.setVisibility(View.GONE);
         Toast.makeText(this, failure, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onCountrySuccess(List<CountryModel> countryModelList) {
+        pbr.setVisibility(View.GONE);
         this.countryModelList = new ArrayList<>(countryModelList);
         this.countryModelList.add(0, new CountryModel("", "Select Country", ""));
         ArrayAdapter<CountryModel> arrayAdapter = new ArrayAdapter<CountryModel>(UserRegisterActivity.this,
@@ -502,11 +503,13 @@ public class UserRegisterActivity extends AppCompatActivity implements CustomerR
 
     @Override
     public void onCountryFailure(String countryFailure) {
+        pbr.setVisibility(View.GONE);
         Toast.makeText(this, countryFailure, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onStateSuccess(List<StateModel> stateModelList) {
+        pbr.setVisibility(View.GONE);
         this.stateModelList = new ArrayList<>(stateModelList);
         this.stateModelList.add(0, new StateModel("", "", "Select State", ""));
         ArrayAdapter<StateModel> arrayAdapter = new ArrayAdapter<StateModel>(UserRegisterActivity.this,
@@ -537,11 +540,13 @@ public class UserRegisterActivity extends AppCompatActivity implements CustomerR
 
     @Override
     public void onStatreFailure(String stateFailure) {
+        pbr.setVisibility(View.GONE);
         Toast.makeText(this, stateFailure, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onDistrictSuccess(List<DistrictModel> districtModelList) {
+        pbr.setVisibility(View.GONE);
         this.districtModelList = new ArrayList<>(districtModelList);
         this.districtModelList.add(0, new DistrictModel("", "", "", "Select District", ""));
         ArrayAdapter<DistrictModel> arrayAdapter = new ArrayAdapter<DistrictModel>(UserRegisterActivity.this,
@@ -572,11 +577,13 @@ public class UserRegisterActivity extends AppCompatActivity implements CustomerR
 
     @Override
     public void onDistrictFailure(String districtFailure) {
+        pbr.setVisibility(View.GONE);
         Toast.makeText(this, districtFailure, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onCitySuccess(List<CityModel> cityModelList) {
+        pbr.setVisibility(View.GONE);
         this.mandalModelList = new ArrayList<>(cityModelList);
         this.mandalModelList.add(0, new CityModel("", "", "", "", "Select Mandal", ""));
         ArrayAdapter<CityModel> arrayAdapter = new ArrayAdapter<CityModel>(UserRegisterActivity.this,
@@ -607,11 +614,13 @@ public class UserRegisterActivity extends AppCompatActivity implements CustomerR
 
     @Override
     public void onCityFailure(String cityFailure) {
+        pbr.setVisibility(View.GONE);
         Toast.makeText(this, cityFailure, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onVillageSuccess(List<VillageModel> villageModelList) {
+        pbr.setVisibility(View.GONE);
         this.villageModelList = new ArrayList<>(villageModelList);
         this.villageModelList.add(0, new VillageModel("", "", "", "", "", "Select Village", ""));
         ArrayAdapter<VillageModel> arrayAdapter = new ArrayAdapter<VillageModel>(UserRegisterActivity.this,
@@ -642,11 +651,13 @@ public class UserRegisterActivity extends AppCompatActivity implements CustomerR
 
     @Override
     public void onVillageFailure(String villageFailure) {
+        pbr.setVisibility(View.GONE);
         Toast.makeText(this, villageFailure, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onPincodeSuccess(List<PincodeModel> pincodeModelList) {
+        pbr.setVisibility(View.GONE);
         this.pincodeModelList = new ArrayList<>(pincodeModelList);
         this.pincodeModelList.add(0, new PincodeModel("", "", "", "", "", "", "Select Pincode", ""));
         ArrayAdapter<PincodeModel> arrayAdapter = new ArrayAdapter<PincodeModel>(UserRegisterActivity.this,
@@ -677,13 +688,15 @@ public class UserRegisterActivity extends AppCompatActivity implements CustomerR
 
     @Override
     public void onPincodeFailure(String picodeFailure) {
+        pbr.setVisibility(View.GONE);
         Toast.makeText(this, picodeFailure, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onIamSuccess(List<IamSpinnerModel> iamSpinnerModelList) {
+        pbr.setVisibility(View.GONE);
         this.iamSpinnerModelList = new ArrayList<>(iamSpinnerModelList);
-        this.iamSpinnerModelList.add(0, new IamSpinnerModel("", "Select Iam"));
+        this.iamSpinnerModelList.add(0, new IamSpinnerModel("", "I am"));
         ArrayAdapter<IamSpinnerModel> arrayAdapter = new ArrayAdapter<IamSpinnerModel>(UserRegisterActivity.this,
                 android.R.layout.simple_spinner_item, this.iamSpinnerModelList) {
             @Override
@@ -712,6 +725,7 @@ public class UserRegisterActivity extends AppCompatActivity implements CustomerR
 
     @Override
     public void onIamFailure(String iamFailure) {
+        pbr.setVisibility(View.GONE);
         Toast.makeText(this, iamFailure, Toast.LENGTH_SHORT).show();
     }
 

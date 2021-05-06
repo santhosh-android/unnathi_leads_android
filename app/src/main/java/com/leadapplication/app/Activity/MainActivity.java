@@ -10,12 +10,16 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -41,14 +45,16 @@ import java.util.Calendar;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import pl.pzienowicz.autoscrollviewpager.AutoScrollViewPager;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, HomeBannersApiController.HomeBannersInreface, HomeDashBoardAdapter.DasboardItemListener, CheckAgentStatusController.CheckAgentListener {
     private RecyclerView recyclerView_dash;
     private HomeDashBoardAdapter homeDashBoardAdapter;
     private List<HomeDashBoardRvModel> modelList;
-    private ImageView img_navOpen;
+    private ImageView img_navOpen, imgNotifi;
+    private Button imgAttandance;
     private DrawerLayout drawer_home;
-    private ViewPager vp_slider;
+    private AutoScrollViewPager vp_slider;
     private NavigationView navigation_home;
     private List<SliderViewPagerModel> sliderViewPagerModelsList;
     private CardView card_get;
@@ -62,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private String profileImg, name_user;
     private CircleImageView profile_img;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,30 +104,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
         navigation_home.setNavigationItemSelectedListener(this);
 
-        card_get.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //startActivity(new Intent(MainActivity.this, UserDetailsActivity.class));
-            }
-        });
-        //setupTabIcons();
 
         Calendar c = Calendar.getInstance();
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
 
         if (timeOfDay >= 0 && timeOfDay < 12) {
-            //Toast.makeText(this, "Good Morning", Toast.LENGTH_SHORT).show();
             wish_text.setText("Good Morning");
         } else if (timeOfDay >= 12 && timeOfDay < 16) {
-            // Toast.makeText(this, "Good Afternoon", Toast.LENGTH_SHORT).show();
             wish_text.setText("Good Afternoon");
         } else if (timeOfDay >= 16 && timeOfDay < 21) {
             wish_text.setText("Good Evening");
-            //Toast.makeText(this, "Good Evening", Toast.LENGTH_SHORT).show();
         } else if (timeOfDay >= 21 && timeOfDay < 24) {
             wish_text.setText("Good Night");
-            //Toast.makeText(this, "Good Night", Toast.LENGTH_SHORT).show();
         }
+        imgAttandance.setOnClickListener(v -> Toast.makeText(MainActivity.this, "Hi.. Your Attendance is marked", Toast.LENGTH_SHORT).show());
+        imgNotifi.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, NotificationsActivity.class)));
+
     }
 
     private void checkAgentStatus() {
@@ -138,6 +137,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         SliderViewPagerAdapter adapter = new SliderViewPagerAdapter(this, sliderViewList);
         vp_slider.setOffscreenPageLimit(adapter.getCount());
         vp_slider.setAdapter(adapter);
+        vp_slider.setInterval(5000);
+        vp_slider.startAutoScroll();
+        vp_slider.startAutoScroll(500);
+        vp_slider.setDirection(AutoScrollViewPager.Direction.RIGHT);
+        vp_slider.setCycle(true);
     }
 
     @Override
@@ -166,6 +170,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         wish_text = findViewById(R.id.wish_text);
         profile_img = findViewById(R.id.profile_img);
         name_text = findViewById(R.id.name_text);
+        imgAttandance = findViewById(R.id.imgAttandance);
+        imgNotifi = findViewById(R.id.imgNotifi);
         /*viewpager_home = findViewById(R.id.viewpager_home);
         tab_home = findViewById(R.id.tab_home);*/
     }
@@ -191,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(new Intent(MainActivity.this, ManageLeadsActivity.class));
         } else if (position == 3) {
             startActivity(new Intent(MainActivity.this, ProfileActivity.class));
-        }  else if (position == 0) {
+        } else if (position == 0) {
             Intent intent = new Intent(MainActivity.this, UserDetailsActivity.class);
             intent.putExtra("country", countryName);
             intent.putExtra("state", stateName);
@@ -209,16 +215,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.dash) {
             startActivity(new Intent(this, MainActivity.class));
             drawer_home.closeDrawer(GravityCompat.START);
-        } else if (id == R.id.profile) {
-            startActivity(new Intent(this, ProfileActivity.class));
+        } else if (id == R.id.leave) {
+            Toast.makeText(this, "This feature is coming soon..", Toast.LENGTH_SHORT).show();
             drawer_home.closeDrawer(GravityCompat.START);
-        } else if (id == R.id.manage_leads) {
-            startActivity(new Intent(this, ManageLeadsActivity.class));
+        } else if (id == R.id.businesscard) {
+            Toast.makeText(this, "This feature is coming soon..", Toast.LENGTH_SHORT).show();
             drawer_home.closeDrawer(GravityCompat.START);
         } else if (id == R.id.add_lead) {
             startActivity(new Intent(this, UserDetailsActivity.class));
             drawer_home.closeDrawer(GravityCompat.START);
-        } else if (id == R.id.log_out) {
+        } else if (id == R.id.abt) {
+            Toast.makeText(this, "This feature is coming soon..", Toast.LENGTH_SHORT).show();
+            drawer_home.closeDrawer(GravityCompat.START);
+        }else if (id==R.id.wallet){
+            Toast.makeText(this, "This feature is coming soon", Toast.LENGTH_SHORT).show();
+            drawer_home.closeDrawer(GravityCompat.START);
+        }
+        else if (id == R.id.log_out) {
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder.setMessage("Are sure want to exit")
                     .setCancelable(false)
@@ -241,9 +254,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             });
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
-            drawer_home.closeDrawer(GravityCompat.START);
-        } else if (id == R.id.completed) {
-            startActivity(new Intent(this, TotalLeads.class));
             drawer_home.closeDrawer(GravityCompat.START);
         }
         return true;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -51,6 +51,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/app_bar"
         android:layout_marginBottom="10dp">
 
         <LinearLayout
@@ -95,6 +96,7 @@
                     android:id="@+id/name_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:autofillHints=""
                     android:backgroundTint="@color/green"
                     android:hint="@string/enater_name"
                     android:inputType="text"
@@ -170,12 +172,14 @@
 
             <Spinner
                 android:id="@+id/spinner_country"
+                style="@style/Widget.AppCompat.Spinner.Underlined"
+                android:gravity="clip_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
-                android:background="@drawable/spinner_shape" />
+                />
 
             <Spinner
                 android:id="@+id/spinner_state"
@@ -184,7 +188,8 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
-                android:background="@drawable/spinner_shape" />
+                style="@style/Widget.AppCompat.Spinner.Underlined"
+                android:gravity="clip_vertical" />
 
             <Spinner
                 android:id="@+id/spinner_district"
@@ -193,7 +198,8 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
-                android:background="@drawable/spinner_shape" />
+                style="@style/Widget.AppCompat.Spinner.Underlined"
+                android:gravity="clip_vertical" />
 
             <Spinner
                 android:id="@+id/spinner_city"
@@ -202,7 +208,9 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
-                android:background="@drawable/spinner_shape" />
+                style="@style/Widget.AppCompat.Spinner.Underlined"
+                android:gravity="clip_vertical" />
+
             <Spinner
                 android:id="@+id/spinner_village"
                 android:layout_width="match_parent"
@@ -210,7 +218,9 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
-                android:background="@drawable/spinner_shape" />
+                style="@style/Widget.AppCompat.Spinner.Underlined"
+                android:gravity="clip_vertical" />
+
             <Spinner
                 android:id="@+id/spinner_pincode"
                 android:layout_width="match_parent"
@@ -218,7 +228,8 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
-                android:background="@drawable/spinner_shape" />
+                style="@style/Widget.AppCompat.Spinner.Underlined"
+                android:gravity="clip_vertical" />
 
             <!--<com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/et_layout_pincode"
@@ -301,9 +312,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                app:passwordToggleEnabled="true"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp">
+                android:layout_marginEnd="20dp"
+                app:passwordToggleEnabled="true">
 
                 <EditText
                     android:id="@+id/password_edit"
@@ -333,4 +344,11 @@
         </LinearLayout>
     </ScrollView>
 
-</LinearLayout>
+    <ProgressBar
+        android:id="@+id/pbr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+</RelativeLayout>

@@ -25,9 +25,11 @@ public class HomeDashBoardAdapter extends RecyclerView.Adapter<HomeDashBoardAdap
         this.mContext = mContext;
         this.dashBoardRvModel = dashBoardRvModel;
     }
-    public interface DasboardItemListener{
+
+    public interface DasboardItemListener {
         void onDashBoardItemClick(int position);
     }
+
     private DasboardItemListener dasboardItemListener;
 
     public void setDasboardItemListener(DasboardItemListener dasboardItemListener) {
@@ -64,10 +66,18 @@ public class HomeDashBoardAdapter extends RecyclerView.Adapter<HomeDashBoardAdap
             txt_dash = itemView.findViewById(R.id.txt_dash);
             img_dash = itemView.findViewById(R.id.img_dash);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+            img_dash.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (dasboardItemListener!=null){
+                    if (dasboardItemListener != null) {
+                        dasboardItemListener.onDashBoardItemClick(getAdapterPosition());
+                    }
+                }
+            });
+            txt_dash.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (dasboardItemListener != null) {
                         dasboardItemListener.onDashBoardItemClick(getAdapterPosition());
                     }
                 }

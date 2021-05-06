@@ -31,11 +31,12 @@ public class LoginActivity extends AppCompatActivity implements LoginController.
     private Button btn_login;
     private TextInputEditText edit_email_value, edit_password_value;
     private String emailString, passwordString, agent_id, otp_verified, status;
-    private TextView tv_register_btn;
+    private TextView tv_register_btn, txtForgot;
     private SharedPreferences sharedPreferences;
     private ProgressDialog progressDialog;
     private boolean check_login;
-    private String country_id, country, state_id, state, district_id, district, profile_image, name;
+    private String country_id, country, state_id, state, district_id, district, profile_image, name, isOtpVerified = "";
+
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -49,9 +50,8 @@ public class LoginActivity extends AppCompatActivity implements LoginController.
         progressDialog.setMessage("Login Please Wait...");
         castingViews();
 
-        tv_register_btn = (TextView) findViewById(R.id.tv_register_btn);
         Spannable wordtoSpan = new SpannableString("Don't have an account? Register");
-        wordtoSpan.setSpan(new ForegroundColorSpan(R.color.colorPrimary), 23, 31, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        wordtoSpan.setSpan(new ForegroundColorSpan(R.color.red), 23, 31, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         tv_register_btn.setText(wordtoSpan);
 
         btn_login.setOnClickListener(new View.OnClickListener() {
@@ -60,17 +60,15 @@ public class LoginActivity extends AppCompatActivity implements LoginController.
                 gettingVariables();
                 if (!validateEmail() | !validatePassword()) {
                     return;
-                } else {
+                } else if (isOtpVerified.equals("yes")) {
                     loginApiCall();
+                } else {
+
                 }
             }
         });
-        tv_register_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-            }
-        });
+        tv_register_btn.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, RegisterActivity.class)));
+        txtForgot.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class)));
     }
 
     private void loginApiCall() {
@@ -112,6 +110,7 @@ public class LoginActivity extends AppCompatActivity implements LoginController.
         edit_email_value = findViewById(R.id.edit_email_value);
         edit_password_value = findViewById(R.id.edit_password_value);
         tv_register_btn = findViewById(R.id.tv_register_btn);
+        txtForgot = findViewById(R.id.txtForgot);
     }
 
     @Override

@@ -91,6 +91,6 @@ public class SplashActivity extends AppCompatActivity implements CheckAgentStatu
 
     @Override
     public void onAgentFailure(String failureString) {
-        Toast.makeText(this, failureString, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, failureString, Toast.LENGTH_SHORT).show();
     }
 }

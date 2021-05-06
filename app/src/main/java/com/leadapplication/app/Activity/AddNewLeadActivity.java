@@ -24,6 +24,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -50,6 +51,7 @@ import com.leadapplication.app.Model.SubServicesModel;
 import com.leadapplication.app.Model.VillageModel;
 import com.leadapplication.app.R;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -97,12 +99,13 @@ public class AddNewLeadActivity extends AppCompatActivity implements LocationSpi
     private List<PincodeModel> pincodeModelList;
     private List<StatusModel> statusModelList;
     private List<SourceSpinnerModel> sourceSpinnerModelList;
-    private String selectedCountry = "", selectedState = "", selectedDistrict = "", selectedCity = "", selectedStatusId="",selectedStatus = "", agent_id, selectedVillage = "", selectedPincode = "", selectedSource = "";
+    private String selectedCountry = "", selectedState = "", selectedDistrict = "", selectedCity = "", selectedStatusId = "", selectedStatus = "", agent_id, selectedVillage = "", selectedPincode = "", selectedSource = "";
     private SharedPreferences sharedPreferences;
     private RadioGroup radio_group_type;
     private RadioButton radio_services, radio_product, radioButton;
     private LinearLayout layout_category, layout_category_sub, layout_product, layout_sub_product;
     private ProgressDialog progressDialog;
+    private ProgressBar pbr;
 
     private int CalendarHour, CalendarMinute;
     String format;
@@ -505,12 +508,14 @@ public class AddNewLeadActivity extends AppCompatActivity implements LocationSpi
     }
 
     private void getSerivcesCategoriesApiCall() {
+        pbr.setVisibility(View.VISIBLE);
         final ArrayList<String> serviceArrayList = new ArrayList<>();
         UnnathiLeadJsonPlaceHolder jsonPlaceHolder = RetrofitInstance.getRetrofit().create(UnnathiLeadJsonPlaceHolder.class);
         Call<ResponseBody> responseBodyCall = jsonPlaceHolder.getServices();
         responseBodyCall.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                pbr.setVisibility(View.GONE);
                 if (response.body() != null) {
                     try {
                         String responseString = new String(response.body().bytes());
@@ -553,19 +558,24 @@ public class AddNewLeadActivity extends AppCompatActivity implements LocationSpi
                             category_spinner.setSelection(arrayAdapter.getPosition("Select Service Category"));
                             category_spinner.setAdapter(arrayAdapter);
                         } else {
+                            pbr.setVisibility(View.GONE);
                             String message = responseObject.getString("message");
                             Toast.makeText(AddNewLeadActivity.this, message, Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException | IOException e) {
                         e.printStackTrace();
+                        pbr.setVisibility(View.GONE);
+                        Toast.makeText(AddNewLeadActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     }
+                }else {
+                    pbr.setVisibility(View.GONE);
+                    Toast.makeText(AddNewLeadActivity.this, "Something went ", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
                 t.printStackTrace();
-
             }
         });
     }
@@ -639,12 +649,14 @@ public class AddNewLeadActivity extends AppCompatActivity implements LocationSpi
     }
 
     private void getProductsApiCall() {
+        pbr.setVisibility(View.VISIBLE);
         final ArrayList<String> productArrayList = new ArrayList<>();
         UnnathiLeadJsonPlaceHolder jsonPlaceHolder = RetrofitInstance.getRetrofit().create(UnnathiLeadJsonPlaceHolder.class);
         Call<ResponseBody> responseBodyCall = jsonPlaceHolder.getProducts();
         responseBodyCall.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                pbr.setVisibility(View.GONE);
                 if (response.body() != null) {
                     try {
                         String responseString = new String(response.body().bytes());
@@ -687,12 +699,18 @@ public class AddNewLeadActivity extends AppCompatActivity implements LocationSpi
                             product_spinner.setSelection(arrayAdapter.getPosition("Select Product Category"));
                             product_spinner.setAdapter(arrayAdapter);
                         } else {
+                            pbr.setVisibility(View.GONE);
                             String message = responseObject.getString("message");
                             Toast.makeText(AddNewLeadActivity.this, message, Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException | IOException e) {
                         e.printStackTrace();
+                        pbr.setVisibility(View.GONE);
+                        Toast.makeText(AddNewLeadActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     }
+                } else {
+                    pbr.setVisibility(View.GONE);
+                    Toast.makeText(AddNewLeadActivity.this, "Something went wrong, please try again", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -705,12 +723,14 @@ public class AddNewLeadActivity extends AppCompatActivity implements LocationSpi
     }
 
     private void getSubProducts() {
+        pbr.setVisibility(View.VISIBLE);
         final ArrayList<String> subProductArrayList = new ArrayList<>();
         UnnathiLeadJsonPlaceHolder jsonPlaceHolder = RetrofitInstance.getRetrofit().create(UnnathiLeadJsonPlaceHolder.class);
         Call<ResponseBody> responseBodyCall = jsonPlaceHolder.getSubProducts(product_id);
         responseBodyCall.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                pbr.setVisibility(View.GONE);
                 if (response.body() != null) {
                     try {
                         String responseString = new String(response.body().bytes());
@@ -755,12 +775,18 @@ public class AddNewLeadActivity extends AppCompatActivity implements LocationSpi
                             sub_product_spinner.setSelection(arrayAdapter.getPosition("Select Sub Product Category"));
                             sub_product_spinner.setAdapter(arrayAdapter);
                         } else {
+                            pbr.setVisibility(View.VISIBLE);
                             String message = responseObject.getString("message");
                             Toast.makeText(AddNewLeadActivity.this, message, Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException | IOException e) {
                         e.printStackTrace();
+                        pbr.setVisibility(View.VISIBLE);
+                        Toast.makeText(AddNewLeadActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     }
+                } else {
+                    pbr.setVisibility(View.VISIBLE);
+                    Toast.makeText(AddNewLeadActivity.this, "Something went wrong, please try again", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -822,6 +848,7 @@ public class AddNewLeadActivity extends AppCompatActivity implements LocationSpi
         district_name = findViewById(R.id.district_name);
         et_number_alter_value = findViewById(R.id.et_number_alter_value);
         layout_venue = findViewById(R.id.layout_venue);
+        pbr = findViewById(R.id.pbr);
     }
 
     public boolean validateCountry() {

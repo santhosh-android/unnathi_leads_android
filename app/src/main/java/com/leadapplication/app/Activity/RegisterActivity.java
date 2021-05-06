@@ -30,6 +30,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +47,7 @@ import com.leadapplication.app.Model.VillageModel;
 import com.leadapplication.app.Utils.ImageUtils;
 import com.leadapplication.app.R;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -94,6 +96,7 @@ public class RegisterActivity extends AppCompatActivity {
     private String aadhar = "", profile = "", agent_id, country_id, country, state_id, state, district_id, district;
     private SharedPreferences sharedPreferences;
     private ProgressDialog progressDialog;
+    private ProgressBar pbr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,43 +139,30 @@ public class RegisterActivity extends AppCompatActivity {
         spinner_district = findViewById(R.id.spinner_district);
         spinner_village = findViewById(R.id.spinner_village);
         spinner_pincode = findViewById(R.id.spinner_pincode);
+        pbr = findViewById(R.id.pbr);
     }
 
     private void onClick() {
-        profileChangeImageBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                phototype = "profile";
-                alertDialog();
+        profileChangeImageBtn.setOnClickListener(v -> {
+            phototype = "profile";
+            alertDialog();
+        });
+        aadhar_edit.setOnClickListener(v -> {
+            phototype = "aadhar";
+            alertDialog();
+        });
+        btn_register.setOnClickListener(v -> {
+            gettingVariables();
+            if (!validateName() || !validatePassword() || !validateEmail() ||
+                    !validateaddress() || !validateMobile() || !validateaadhar()
+                    || !validateProfile() || !validateCountry() || !validateState() || !validateDistrict()
+                    || !validateMandal() || !validateVillage() || !validatePincode()) {
+                return;
+            } else {
+                registerApiCall();
             }
         });
-        aadhar_edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                phototype = "aadhar";
-                alertDialog();
-            }
-        });
-        btn_register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                gettingVariables();
-                if (!validateName() || !validatePassword() || !validateEmail() ||
-                        !validateaddress() || !validateMobile() || !validateaadhar()
-                        || !validateProfile() || !validateCountry() || !validateState() || !validateDistrict()
-                        || !validateMandal() || !validateVillage() || !validatePincode()) {
-                    return;
-                } else {
-                    registerApiCall();
-                }
-            }
-        });
-        img_back_reg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        img_back_reg.setOnClickListener(v -> onBackPressed());
         spinner_country.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -185,7 +175,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                //   Toast.makeText(RegisterActivity.this, "Select Country", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(RegisterActivity.this, "Select Country", Toast.LENGTH_SHORT).show();
             }
         });
         spinner_state.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -409,7 +399,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     public boolean validateProfile() {
         if (profile.isEmpty()) {
-            Toast.makeText(this, "Upload Profile", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Upload Profile Picture", Toast.LENGTH_SHORT).show();
             return false;
         } else {
             return true;
@@ -616,45 +606,44 @@ public class RegisterActivity extends AppCompatActivity {
         MultipartBody.Part profile_pic = prepareFilePart("profile", profile);
         UnnathiLeadJsonPlaceHolder jsonPlaceHolder = RetrofitInstance.getRetrofit().create(UnnathiLeadJsonPlaceHolder.class);
         Call<ResponseBody> responseBodyCall = jsonPlaceHolder.userRegister(
-                RequestBody.create(MediaType.parse("text/plain"), name),
-                RequestBody.create(MediaType.parse("text/plain"), emailString),
-                RequestBody.create(MediaType.parse("text/plain"), numberString),
-                RequestBody.create(MediaType.parse("text/plain"), selectedCountry),
-                RequestBody.create(MediaType.parse("text/plain"), selectedState),
-                RequestBody.create(MediaType.parse("text/plain"), selectedDistrict),
-                RequestBody.create(MediaType.parse("text/plain"), selectedCity),
-                RequestBody.create(MediaType.parse("text/plain"), selectedVillage),
-                RequestBody.create(MediaType.parse("text/plain"), addressString),
-                RequestBody.create(MediaType.parse("text/plain"), selectedPincode),
-                RequestBody.create(MediaType.parse("text/plain"), passwordString),
-                aadhar_pic, profile_pic);
+                RequestBody.create(name, MediaType.parse("text/plain")),
+                RequestBody.create(emailString, MediaType.parse("text/plain")),
+                RequestBody.create(numberString, MediaType.parse("text/plain")),
+                RequestBody.create(selectedCountry, MediaType.parse("text/plain")),
+                RequestBody.create(selectedState, MediaType.parse("text/plain")),
+                RequestBody.create(selectedDistrict, MediaType.parse("text/plain")),
+                RequestBody.create(selectedCity, MediaType.parse("text/plain")),
+                RequestBody.create(selectedVillage, MediaType.parse("text/plain")),
+                RequestBody.create(addressString, MediaType.parse("text/plain")),
+                RequestBody.create(selectedPincode, MediaType.parse("text/plain")),
+                RequestBody.create(passwordString, MediaType.parse("text/plain")),
+                profile_pic, aadhar_pic);
 
         responseBodyCall.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
+                progressDialog.cancel();
                 if (response.body() != null) {
-                    progressDialog.cancel();
                     try {
                         String responseString = new String(response.body().bytes());
                         JSONObject responseObject = new JSONObject(responseString);
                         if (responseObject.getString("status").equalsIgnoreCase("valid")) {
                             String message = responseObject.getString("message");
                             Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_SHORT).show();
-
                             /*String otp = responseObject.getString("otp");
                             Toast.makeText(RegisterActivity.this, otp, Toast.LENGTH_SHORT).show();*/
                             agent_id = responseObject.getString("user_id");
-
                             JSONObject userObject = responseObject.getJSONObject("user_data");
 
-                            country_id = userObject.getString("country");
-                            state_id = userObject.getString("state");
-                            district_id = userObject.getString("district");
+                            if (userObject != null) {
+                                country_id = userObject.getString("country");
+                                state_id = userObject.getString("state");
+                                district_id = userObject.getString("district");
 
-                            country = userObject.getString("country_name");
-                            state = userObject.getString("state_name");
-                            district = userObject.getString("district_name");
-
+                                country = userObject.getString("country_name");
+                                state = userObject.getString("state_name");
+                                district = userObject.getString("district_name");
+                            }
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("agent_id", agent_id);
                             editor.putString("country_id", country_id);
@@ -665,8 +654,7 @@ public class RegisterActivity extends AppCompatActivity {
                             editor.putString("state", state);
                             editor.putString("district", district);
                             editor.apply();
-                            editor.commit();
-                            startActivity(new Intent(RegisterActivity.this, SuccessfulActivity.class));
+                            startActivity(new Intent(RegisterActivity.this, SuccessfulActivity.class).putExtra("id", agent_id).putExtra("from", "agent"));
 
                         } else {
                             progressDialog.cancel();
@@ -677,11 +665,13 @@ public class RegisterActivity extends AppCompatActivity {
                         e.printStackTrace();
                         progressDialog.cancel();
                     }
+                } else {
+                    Toast.makeText(RegisterActivity.this, "Something went wrong, please try again..", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
                 t.printStackTrace();
                 progressDialog.cancel();
             }
@@ -702,6 +692,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void getCountries() {
+        pbr.setVisibility(View.VISIBLE);
         final ArrayList<String> arrayList = new ArrayList<>();
         UnnathiLeadJsonPlaceHolder jsonPlaceHolder = RetrofitInstance.getRetrofit().create(UnnathiLeadJsonPlaceHolder.class);
         Call<ResponseBody> responseBodyCall = jsonPlaceHolder.getCountries();
@@ -709,6 +700,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.body() != null) {
+                    pbr.setVisibility(View.GONE);
                     try {
                         String responseString = new String(response.body().bytes());
                         JSONObject responseObject = new JSONObject(responseString);
@@ -749,11 +741,13 @@ public class RegisterActivity extends AppCompatActivity {
                             spinner_country.setSelection(arrayAdapter.getPosition("Select Country"));
                             spinner_country.setAdapter(arrayAdapter);
                         } else {
+                            pbr.setVisibility(View.GONE);
                             String message = responseObject.getString("message");
                             Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException | IOException e) {
                         e.printStackTrace();
+                        pbr.setVisibility(View.GONE);
                     }
                 }
             }
@@ -761,11 +755,13 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 t.printStackTrace();
+                pbr.setVisibility(View.GONE);
             }
         });
     }
 
     private void getStatesApiCall() {
+        pbr.setVisibility(View.VISIBLE);
         final ArrayList<String> stateArrayList = new ArrayList<>();
         UnnathiLeadJsonPlaceHolder jsonPlaceHolder = RetrofitInstance.getRetrofit().create(UnnathiLeadJsonPlaceHolder.class);
         Call<ResponseBody> responseBodyCall = jsonPlaceHolder.getStates(selectedCountry);
@@ -773,6 +769,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.body() != null) {
+                    pbr.setVisibility(View.GONE);
                     try {
                         String responseString = new String(response.body().bytes());
                         JSONObject responseObject = new JSONObject(responseString);
@@ -815,11 +812,13 @@ public class RegisterActivity extends AppCompatActivity {
                             spinner_state.setAdapter(stateAdapter);
 
                         } else {
+                            pbr.setVisibility(View.GONE);
                             String message = responseObject.getString("message");
                             Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException | IOException e) {
                         e.printStackTrace();
+                        pbr.setVisibility(View.GONE);
                     }
                 }
             }
@@ -827,11 +826,13 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 t.printStackTrace();
+                pbr.setVisibility(View.GONE);
             }
         });
     }
 
     private void getDistrictsApiCall() {
+        pbr.setVisibility(View.VISIBLE);
         final ArrayList<String> districtArrayList = new ArrayList<>();
         UnnathiLeadJsonPlaceHolder jsonPlaceHolder = RetrofitInstance.getRetrofit().create(UnnathiLeadJsonPlaceHolder.class);
         Call<ResponseBody> responseBodyCall = jsonPlaceHolder.getDistricts(selectedState);
@@ -839,6 +840,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.body() != null) {
+                    pbr.setVisibility(View.GONE);
                     try {
                         String responseString = new String(response.body().bytes());
                         JSONObject responseObject = new JSONObject(responseString);
@@ -880,11 +882,13 @@ public class RegisterActivity extends AppCompatActivity {
                             districtAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
                             spinner_district.setAdapter(districtAdapter);
                         } else {
+                            pbr.setVisibility(View.GONE);
                             String message = responseObject.getString("message");
                             Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException | IOException e) {
                         e.printStackTrace();
+                        pbr.setVisibility(View.GONE);
                     }
                 }
             }
@@ -892,11 +896,13 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 t.printStackTrace();
+                pbr.setVisibility(View.GONE);
             }
         });
     }
 
     private void getMandalApiCall() {
+        pbr.setVisibility(View.VISIBLE);
         final ArrayList<String> cityArrayList = new ArrayList<>();
         UnnathiLeadJsonPlaceHolder jsonPlaceHolder = RetrofitInstance.getRetrofit().create(UnnathiLeadJsonPlaceHolder.class);
         Call<ResponseBody> responseBodyCall = jsonPlaceHolder.getMandal(selectedDistrict);
@@ -904,6 +910,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.body() != null) {
+                    pbr.setVisibility(View.GONE);
                     try {
                         String responseString = new String(response.body().bytes());
                         JSONObject responseObject = new JSONObject(responseString);
@@ -946,11 +953,13 @@ public class RegisterActivity extends AppCompatActivity {
                             cityAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
                             spinner_city.setAdapter(cityAdapter);
                         } else {
+                            pbr.setVisibility(View.GONE);
                             String failureMessage = responseObject.getString("message");
                             Toast.makeText(RegisterActivity.this, failureMessage, Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException | IOException e) {
                         e.printStackTrace();
+                        pbr.setVisibility(View.GONE);
                     }
                 }
             }
@@ -964,6 +973,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void getVillagesApiCall() {
+        pbr.setVisibility(View.VISIBLE);
         final ArrayList<String> villagesArrayList = new ArrayList<>();
         UnnathiLeadJsonPlaceHolder jsonPlaceHolder = RetrofitInstance.getRetrofit().create(UnnathiLeadJsonPlaceHolder.class);
         Call<ResponseBody> responseBodyCall = jsonPlaceHolder.getVillages(selectedCity);
@@ -971,6 +981,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.body() != null) {
+                    pbr.setVisibility(View.GONE);
                     try {
                         String responseString = new String(response.body().bytes());
                         JSONObject responseObject = new JSONObject(responseString);
@@ -1015,12 +1026,14 @@ public class RegisterActivity extends AppCompatActivity {
                             villageAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
                             spinner_village.setAdapter(villageAdapter);
                         } else {
+                            pbr.setVisibility(View.GONE);
                             String failureMessage = responseObject.getString("message");
                             Toast.makeText(RegisterActivity.this, failureMessage, Toast.LENGTH_SHORT).show();
                         }
 
                     } catch (JSONException | IOException e) {
                         e.printStackTrace();
+                        pbr.setVisibility(View.GONE);
                     }
                 }
             }
@@ -1028,11 +1041,13 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 t.printStackTrace();
+                pbr.setVisibility(View.GONE);
             }
         });
     }
 
     private void getPincode() {
+        pbr.setVisibility(View.VISIBLE);
         final ArrayList<String> picodeArrayList = new ArrayList<>();
         UnnathiLeadJsonPlaceHolder jsonPlaceHolder = RetrofitInstance.getRetrofit().create(UnnathiLeadJsonPlaceHolder.class);
         Call<ResponseBody> responseBodyCall = jsonPlaceHolder.getPincode(selectedVillage);
@@ -1040,6 +1055,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.body() != null) {
+                    pbr.setVisibility(View.GONE);
                     try {
                         String responseString = new String(response.body().bytes());
                         JSONObject responseObject = new JSONObject(responseString);
@@ -1084,11 +1100,13 @@ public class RegisterActivity extends AppCompatActivity {
                             villageAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
                             spinner_pincode.setAdapter(villageAdapter);
                         } else {
+                            pbr.setVisibility(View.GONE);
                             String failureMessage = responseObject.getString("message");
                             Toast.makeText(RegisterActivity.this, failureMessage, Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException | IOException e) {
                         e.printStackTrace();
+                        pbr.setVisibility(View.GONE);
                     }
                 }
             }
@@ -1096,6 +1114,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 t.printStackTrace();
+                pbr.setVisibility(View.GONE);
             }
         });
     }

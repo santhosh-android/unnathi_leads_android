@@ -28,11 +28,23 @@
                     android:id="@+id/img_navOpen"
                     android:layout_width="25dp"
                     android:layout_height="30dp"
-                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginEnd="10dp"
                     android:contentDescription="@string/todo"
                     android:src="@drawable/ic_menu_lead" />
+
+                <ImageView
+                    android:id="@+id/imgLiveChat"
+                    android:layout_width="25dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/img_navOpen"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:contentDescription="@string/todo"
+                    android:focusable="true"
+                    android:src="@drawable/ic_live_chat" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -42,25 +54,24 @@
                     android:padding="10dp"
                     android:text="MY DASHBOARD"
                     android:textColor="#0C700F"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:id="@+id/imgNotifi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:contentDescription="@string/app_name"
+                    android:focusable="true"
+                    android:src="@drawable/ic_notifications" />
 
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
-
-    <!-- <com.google.android.material.tabs.TabLayout
-         android:id="@+id/tab_home"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:layout_below="@id/app_bar"
-         android:elevation="5dp"
-         app:tabIndicatorColor="@color/green" />
-
-     <androidx.viewpager.widget.ViewPager
-         android:id="@+id/viewpager_home"
-         android:layout_width="match_parent"
-         android:layout_height="match_parent"
-         android:layout_below="@id/tab_home" />-->
 
     <ScrollView
         android:layout_width="match_parent"
@@ -69,9 +80,14 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
-            <androidx.viewpager.widget.ViewPager
+            <!-- <androidx.viewpager.widget.ViewPager
+                 android:id="@+id/vp_slider"
+                 android:layout_width="match_parent"
+                 android:layout_height="180dp" />-->
+
+            <pl.pzienowicz.autoscrollviewpager.AutoScrollViewPager
                 android:id="@+id/vp_slider"
                 android:layout_width="match_parent"
                 android:layout_height="180dp" />
@@ -88,14 +104,14 @@
                 android:id="@+id/spring_dots_indicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_below="@id/vp_slider"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:padding="10dp"
+                android:layout_marginTop="-25dp"
+                android:padding="8dp"
                 app:dampingRatio="0.2"
                 app:dotsColor="@color/green"
                 app:dotsCornerRadius="8dp"
-                app:dotsSize="12dp"
+                app:dotsSize="8dp"
                 app:dotsSpacing="5dp"
                 app:dotsStrokeColor="@color/greenlite"
                 app:stiffness="300" />
@@ -117,110 +133,200 @@
                         android:layout_height="50dp"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="5dp"
                         tools:src="@drawable/profile" />
 
                     <TextView
                         android:id="@+id/wish_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_toRightOf="@id/profile_img"
-                        android:textColor="@android:color/black"
-                        android:layout_marginTop="10dp"
-                        android:textSize="15sp"
+                        android:layout_marginStart="7dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_toEndOf="@id/profile_img"
                         android:padding="2dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp"
                         android:textStyle="bold"
                         tools:text="Good Morning" />
+
                     <TextView
                         android:id="@+id/name_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_toRightOf="@id/profile_img"
                         android:layout_below="@id/wish_text"
+                        android:layout_marginStart="7dp"
+                        android:layout_toEndOf="@id/profile_img"
                         android:padding="2dp"
                         android:textColor="@android:color/black"
-                        android:textSize="15sp"
+                        android:textSize="14sp"
                         android:textStyle="bold"
                         tools:text="Good Morning" />
 
                     <LinearLayout
-                        android:id="@+id/lay_mtd"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:paddingTop="3dp"
-                        android:layout_centerVertical="true"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="10dp">
-                        <TextView
-                            android:id="@+id/txt_mtd"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="MTD"
-                            android:textAlignment="center"
-                            android:gravity="center_horizontal"
-                            android:layout_gravity="center_horizontal"
-                            android:textColor="@android:color/black"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-                        <TextView
-                            android:id="@+id/txt_mtd_value"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:text="A/T"
-                            android:background="@drawable/background_ytd"
-                            android:padding="5dp"
-                            android:gravity="center_vertical"
-                            android:layout_gravity="center"
-                           android:textAlignment="center"
-                            android:textColor="@android:color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="10dp"
+                            android:orientation="vertical"
+                            android:paddingTop="3dp">
+
+                            <TextView
+                                android:id="@+id/txt_ytd"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:gravity="center_horizontal"
+                                android:text="YTD"
+                                android:textAlignment="center"
+                                android:textColor="@android:color/black"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                            <LinearLayout
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:background="@drawable/background_ytd"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal"
+                                    android:text="A"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="14sp" />
+
+                                <View
+                                    android:layout_width="30dp"
+                                    android:layout_height="2dp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:background="@android:color/black" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal"
+                                    android:text="T"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="14sp" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/lay_mtd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="10dp"
+                            android:orientation="vertical"
+                            android:paddingTop="3dp">
+
+                            <TextView
+                                android:id="@+id/txt_mtd"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:gravity="center_horizontal"
+                                android:text="MTD"
+                                android:textAlignment="center"
+                                android:textColor="@android:color/black"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                            <LinearLayout
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:background="@drawable/background_ytd"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal"
+                                    android:text="A"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="14sp" />
+
+                                <View
+                                    android:layout_width="30dp"
+                                    android:layout_height="2dp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:background="@android:color/black" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal"
+                                    android:text="T"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="14sp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/lay_wtd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="10dp"
+                            android:orientation="vertical"
+                            android:paddingTop="3dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:gravity="center_horizontal"
+                                android:text="WTD"
+                                android:textAlignment="center"
+                                android:textColor="@android:color/black"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                            <LinearLayout
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:background="@drawable/background_ytd"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal"
+                                    android:text="A"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="14sp" />
+
+                                <View
+                                    android:layout_width="30dp"
+                                    android:layout_height="2dp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:background="@android:color/black" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal"
+                                    android:text="T"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="14sp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
 
                     </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_marginEnd="10dp"
-                        android:paddingTop="3dp"
-                        android:layout_toLeftOf="@id/lay_mtd">
-                        <TextView
-                            android:id="@+id/txt_ytd"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="YTD"
-                            android:gravity="center_horizontal"
-                            android:layout_gravity="center_horizontal"
-                            android:textAlignment="center"
-                            android:textColor="@android:color/black"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-                        <TextView
-                            android:id="@+id/txt_ytd_value"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:text="A/T"
-                            android:background="@drawable/background_ytd"
-                            android:padding="5dp"
-                            android:textAlignment="center"
-                            android:gravity="center_vertical"
-                            android:layout_gravity="center"
-                            android:textColor="@android:color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-
 
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
-            <RelativeLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@id/card_get"
@@ -230,11 +336,26 @@
                     android:id="@+id/recyclerView_dash"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:background="@android:color/white"
                     android:layout_marginBottom="10dp"
+                    android:background="@android:color/white"
                     android:nestedScrollingEnabled="false" />
-            </RelativeLayout>
+
+
+                <Button
+                    android:id="@+id/imgAttandance"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_round_shape"
+                    android:clickable="true"
+                    android:contentDescription="@string/app_name"
+                    android:elevation="10dp"
+                    android:focusable="true"
+                    android:scaleType="center"
+                    android:src="@drawable/bg_round_shape" />
+
+
+            </FrameLayout>
         </RelativeLayout>
     </ScrollView>
 

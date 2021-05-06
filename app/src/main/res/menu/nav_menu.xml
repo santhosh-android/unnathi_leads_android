@@ -23,34 +23,42 @@
         android:id="@+id/group_3"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/profile"
-            android:title="Profile" />
+            android:id="@+id/leave"
+            android:title="Apply Leave" />
     </group>
+
     <group
         android:id="@+id/group_4"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/manage_leads"
-            android:title="Manage Leads" />
+            android:id="@+id/wallet"
+            android:title="My Wallet" />
+    </group>
+    <group
+        android:id="@+id/group_5"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/businesscard"
+            android:title="Share Business Card" />
     </group>
 
-    <group
+   <!-- <group
         android:id="@+id/group_6"
         android:checkableBehavior="single">
         <item
             android:id="@+id/completed"
             android:title="My Leads" />
-    </group>
+    </group>-->
 
-   <!-- <group
+    <group
         android:id="@+id/group_7"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/support"
-            android:title="Support" />
-    </group>-->
+            android:id="@+id/abt"
+            android:title="About Unnathi Leads" />
+    </group>
     <group
-        android:id="@+id/group_5"
+        android:id="@+id/group_6"
         android:checkableBehavior="single">
         <item
             android:id="@+id/log_out"
